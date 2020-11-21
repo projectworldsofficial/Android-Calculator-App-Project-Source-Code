@@ -1,3 +1,3 @@
-Sample App used to play with Bitrise
+# Add Bitrise CI to Existing Adroid Project
 
-Forked From: https://github.com/projectworldsofficial/Android-Calculator-App-Project-Source-Code
+Android Project used is Forked From: https://github.com/projectworldsofficial/Android-Calculator-App-Project-Source-Code
