@@ -8,8 +8,7 @@ trigger_map:
 workflows:
   deploy:
     description: |
-      ## sign APK
-      ## **deploy** workflow.
+      ## sign APK and deploy
     steps:
     - cache-pull@2: {}
     - script@1:
@@ -62,6 +61,8 @@ workflows:
         - variant: "$VARIANT"
     - deploy-to-bitrise-io@1: {}
     - cache-push@2: {}
+    after_run:
+        - deploy
 app:
   envs:
   - opts:
