@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/text_view_result"
         android:textSize="60sp"
-        android:textAlignment="viewEnd"/>
+        android:textAlignment="viewEnd"
+        android:layout_gravity="end"/>
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent">
