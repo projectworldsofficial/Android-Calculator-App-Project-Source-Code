@@ -31,8 +31,6 @@ workflows:
             - project_location: '$PROJECT_LOCATION'
             - module: '$MODULE'
             - variant: '$VARIANT'
-      - deploy-to-bitrise-io@1: {}
-      - cache-push@2: {}
   deploy:
     description: |
       ## Deploy
