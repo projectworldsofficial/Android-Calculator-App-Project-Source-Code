@@ -6,9 +6,9 @@ trigger_map:
   - push_branch: 'master'
     workflow: deploy
   - push_branch: 'feature/*'
-    workflow: checks
+    workflow: primary
 workflows:
-  checks:
+  primary:
     description: |
       ## Pre-deployment Checks
     steps:
@@ -33,13 +33,11 @@ workflows:
             - variant: '$VARIANT'
       - deploy-to-bitrise-io@1: {}
       - cache-push@2: {}
-    after_run:
-      - deploy
   deploy:
     description: |
       ## Deploy
     before_run:
-      - checks
+      - primary
     steps:
       - cache-pull@2: {}
       - script@1:
