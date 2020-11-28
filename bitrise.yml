@@ -2,11 +2,13 @@
 format_version: '8'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: android
+
 trigger_map:
   - push_branch: 'master'
     workflow: deploy
   - push_branch: 'feature/*'
     workflow: primary
+
 workflows:
   primary:
     description: |
@@ -16,8 +18,6 @@ workflows:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
       - git-clone@4: {}
       - cache-pull@2: {}
-      - script@1:
-          title: Do anything with Script step
       - install-missing-android-tools@2:
           inputs:
             - gradlew_path: '$PROJECT_LOCATION/gradlew'
@@ -31,6 +31,7 @@ workflows:
             - project_location: '$PROJECT_LOCATION'
             - module: '$MODULE'
             - variant: '$VARIANT'
+
   deploy:
     description: |
       ## Deploy
@@ -38,8 +39,6 @@ workflows:
       - primary
     steps:
       - cache-pull@2: {}
-      - script@1:
-          title: Do anything with Script step
       - change-android-versioncode-and-versionname@1:
           inputs:
             - build_gradle_path: '$PROJECT_LOCATION/$MODULE/build.gradle'
@@ -52,6 +51,19 @@ workflows:
           run_if: '{{getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne ""}}'
       - deploy-to-bitrise-io@1: {}
       - cache-push@2: {}
+
+  local:
+    description: |
+      ## Run workflow locally
+    steps:
+      - script@1:
+          title: Display secret env vars
+          inputs:
+            - content: |
+                #!/bin/bash
+                echo "SECRET_ENV_ONE: ${SECRET_ENV_ONE}"
+                echo "SECRET_ENV_TWO: ${SECRET_ENV_TWO}"
+
 app:
   envs:
     - opts:
